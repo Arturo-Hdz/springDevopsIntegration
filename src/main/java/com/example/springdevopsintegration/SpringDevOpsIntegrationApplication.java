@@ -12,7 +12,7 @@ public class SpringDevOpsIntegrationApplication {
     @GetMapping("/get")
     public String getMessage(){
 
-        return "Welcome to EnggAdda";
+        return "Welcome! It's working.";
     }
 
     public static void main(String[] args) {
