@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    tools{
+        maven "MavenTool"
+    }
+    stages{
+        stage("Build Maven"){
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Arturo-Hdz/springDevopsIntegration']])
+
+                sh 'mvn clean install'
+            }
+        }
+
+        stage("Build Docker Image"){
+            steps{
+                script{
+
+                    sh 'docker build -t arturo090/springdevopsintegration .'
+                }
+            }
+        }
+
+        stage("Push Docker Image to Docker Hub"){
+            steps{
+                script{
+                    sh 'docker login'
+                    sh 'docker push arturo090/springdevopsintegration'
+                    //bat win
+                }
+            }
+        }
+    }
+
+}
